@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+ </head>
+  <!-- animation -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <!-- Checklist (anaisha) -->
+ 
+  <body>
+
+   	<!-- poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- gaegu -->
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu&display=swap" rel="stylesheet">
+    <!-- lato -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
+<!-- navigation bar (anaisha & lucy) -->
+	<nav class="nav-bar">
+    <!-- logo -->
+    <div class="logo">
+       <a href="index.html"><img src="/assets/mentalNoteLogo.png" alt="mental note logo" class="pic"></a> 
+    </div>
+    <!-- navigation tabs -->
+    <div class="nav-links">
+      <li>
+        <a class = "link" href="index.html">Home</a>
+      </li>
+      <li>
+        <a class = "link" href="resources.html">Resources</a>
+      </li>
+      <li>
+        <a class = "link" href="checklist.html">Checklist</a>
+      </li>
+    </div>
+
+	</nav>
+
+  <!--🎯 To-do List -->
+  <!-- heading for checklist --> 
+  <div id="myDIV" class="header">
+    <h1 class="checklist-title animate__animated animate__flipInX animate__slower"> your selfcare checklist 🧘🏻 </h2>
+    <h3 class="checklist-heading"> ready to grow your plant? start completing tasks below to <span style="color: #545454"> see your little plant grow! </span></h3>
+    <br>
+  
+  <!--  -->
+  <div class="avatar-directions">
+    <div class="directions-section">
+      <img id="directions" src="/assets/directions.png" onclick="changeImage()"> 
+    </div>
+
+  <div class="plant-group">
+    <div class="plant-section">
+      <img id="plant-section-seeds" src="/assets/seedsAvatar.png">
+    </div>
+
+    <div class="flowerButton">
+         <button class="btn-btn-success" 
+                 onclick=stage1();>
+             Stage 1
+         </button>
+         <button  class="btn-btn-success" 
+                  onclick=stage2();>
+             Stage 2
+    </button>
+    <button  class="btn-btn-success" 
+                  onclick=stage3();>
+             Stage 3
+    </button>
+    <button  class="btn-btn-success" 
+                  onclick=stage4();>
+             Stage 4
+    </button>
+    <h2 class="pointSystem"><span id="points"></span> Points!</h2>
+  </div>
+
+  </div>
+  </div>
+    
+
+
+  <!--
+    <ol class="checklist-heading-2">
+      <li>to add a task: use the textbox below</li>
+      <li>to mark a task as done: click on the task</li>
+      <li>to mark a done task as incomplete: click on the task again</li>
+    </ol> -->
+
+    <!-- Progress Bar-->
+    <!-- <div class="progress">
+      <div class="circle done">
+        <span class="label">1</span>
+        <span class="personal">Personal</span>
+      </div>
+      <span class="bar done"></span>
+      <div class="circle done">
+        <span class="label">2</span>
+        <span class="personal">Address</span>
+      </div>
+      <span class="bar half"></span>
+      <div class="circle active">
+        <span class="label">3</span>
+        <span class="personal">Payment</span>
+      </div>
+      <span class="bar"></span>
+      <div class="circle">
+        <span class="label">4</span>
+        <span class="personal">Review</span>
+      </div>
+      <span class="bar"></span>
+      <div class="circle">
+        <span class="label">5</span>
+        <span class"personal">Finish</span>
+      </div>
+    </div> -->
+      <!-- <br>
+      <button onclick="move()">Click Me</button> -->
+      
+    <div class="add">
+      <input type="text" id="myInput" placeholder="enter your self-care task here! 🌱">
+      <span onclick="newElement()" class="addBtn">add!</span>
+    </div>
+  </div>
+
+  <ul id="myUL">
+    <li class="unchecked">Drink Water</li>
+
+  </ul>
+
+  <!--🎯 JavaScript -->
+  <script>
+
+      // Click on a close button to hide the current list item
+      var close = document.getElementsByClassName("close");
+      var i;
+      for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+          var div = this.parentElement;
+          div.style.display = "none";
+        }
+      }
+
+      // Add a "checked" symbol when clicking on a list item
+      var list = document.querySelector('ul');
+      var counter = 0;
+      list.addEventListener('click', function(ev) {
+        if (ev.target.tagName === 'LI' && ev.target.className === 'unchecked') {
+          ev.target.classList.toggle('checked');
+          console.log(ev.target.className)
+          counter += 1;
+          let c = counter;
+          document.getElementById("points").innerHTML = c;
+        } else if (ev.target.tagName === 'LI') {
+          ev.target.classList.toggle('checked');
+          console.log(ev.target.className)
+          counter -= 1;
+          let c = counter;
+          document.getElementById("points").innerHTML = c;
+        }
+      }, false);
+      // Create a new list item when clicking on the "Add" button
+      var total = 6;
+
+      function newElement() {
+        var li = document.createElement("li");
+        var inputValue = document.getElementById("myInput").value;
+        var t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        if (inputValue === '') {
+          alert("You must write something!");
+        } else {
+          document.getElementById("myUL").appendChild(li);
+          total += 1;
+          li.className = "unchecked";
+          console.log(li.className)
+        }
+        document.getElementById("myInput").value = "";
+
+        // var span = document.createElement("SPAN");
+        // var txt = document.createTextNode("\u00D7");
+        // span.className = "close";
+        // span.appendChild(txt);
+        // li.appendChild(span);
+
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+          }
+        }
+      }
+
+    
+
+  // Game plant
+  //1. Upload all plants assets and make sure they fit with the website
+  //2. Find the number of checked items in a list
+  //3. If the number > 2, change the src link of the img plant
+  
+
+
+  function stage1(){
+        document.getElementById("plant-section-seeds")
+        .src="/assets/seedsAvatar.png";
+    }
+      
+    function stage2(){
+        document.getElementById("plant-section-seeds")
+        .src="/assets/sproutAvatar.png";
+    }
+
+    function stage3(){
+        document.getElementById("plant-section-seeds")
+        .src="/assets/smallPlantAvatar.png";
+    }
+
+    function stage4(){
+        document.getElementById("plant-section-seeds")
+        .src="/assets/flowerAvatar.png";
+    }
+
+    function changeImage() {
+      console.log("image clicked")
+      if (document.getElementById("directions").src = "/assets/directions.png") 
+        {
+            console.log("directions")
+            document.getElementById("directions").src = "/assets/directions2.png";
+        }
+        else if (document.getElementById("directions").src = "/assets/directions2.png")
+        {
+            console.log("directions2")
+            document.getElementById("directions").src = "/assets/directions.png";
+        }
+    }
+
+  
+
+    </script>    
+    </body>
+</html>
